@@ -1,6 +1,7 @@
 package com.yimon.core.async;
 
 import com.yimon.core.exception.RejectedException;
+import com.yimon.core.log.BaseLogger;
 
 /**
  * @author: ym.gao
@@ -11,7 +12,7 @@ public class ThreadPoolExecutorTest {
 
     public static void main(String[] args) {
         ThreadPoolExecutor executorAbort = new ThreadPoolExecutor();
-        executorAbort.newThreadPool("Blog", 5, 6, 10L, 5, new ThreadAbortPolicy());
+        executorAbort.newThreadPool("APPID", 5, 6, 10L, 5, new ThreadAbortPolicy());
         for (int i = 0; i < 12; i++) {
             try {
                 int finalI = i;
@@ -26,7 +27,7 @@ public class ThreadPoolExecutorTest {
         }
         System.err.println("<---------->");
         ThreadPoolExecutor executorDiscard = new ThreadPoolExecutor();
-        executorDiscard.newThreadPool("Blog", 5, 6, 10L, 5, new ThreadDiscardPolicy());
+        executorDiscard.newThreadPool("APPID", 5, 6, 10L, 5, new ThreadDiscardPolicy());
         for (int i = 0; i < 12; i++) {
             try {
                 int finalI = i;
@@ -41,9 +42,9 @@ public class ThreadPoolExecutorTest {
     public static void doMethod(int i) {
         try {
             Thread.sleep(500L);
-            System.out.println(i + "任务业务处理完成");
+            BaseLogger.info("{}任务业务处理完成", i);
         } catch (InterruptedException e) {
-            System.err.println(i + "任务业务处理异常");
+            BaseLogger.info("{}任务业务处理异常", i);
         }
     }
 }
