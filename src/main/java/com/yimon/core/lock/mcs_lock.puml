@@ -1,0 +1,124 @@
+@startuml
+'https://plantuml.com/component-diagram
+left to right direction
+
+'线程3加入阶段
+package "线程3加入" {
+cloud "tailNode" as tailNode-3 #fab27b {
+}
+package "线程3等待锁" as W2-T-3 {
+  frame "实例化" as W2-O-3  #f8aba6 {
+    node "curNode" as W2-curNode-3 #7bbfea {
+        [blocked=true] as blocked9
+        [next=null] as next9
+    }
+  }
+}
+package "线程2等待锁" as W1-T-3 {
+  frame "实例化" as W1-O-3  #f8aba6 {
+    node "curNode" as W1-curNode-3 #7bbfea {
+        [blocked=true] as blocked8
+        [next] as next8
+    }
+  }
+}
+package "线程1获取锁" as G-T-3 {
+  frame "实例化" as G-O-3  #cde6c7 {
+    node "curNode" as G-curNode-3 #7bbfea {
+        [blocked=false] as blocked7
+        [next] as next7
+    }
+  }
+}
+package "初始化锁的状态" as T-3 {
+  frame "实例化" as O-3  #d3d7d4 {
+    node "curNode" as curNode-3 #7bbfea {
+        [blocked=false] as blocked6
+        [next] as next6
+    }
+  }
+}
+[tailNode-3] --> [W2-curNode-3] :原子引用
+[next8] --> [W2-curNode-3]
+[next7] --> [W1-curNode-3]
+[next6] --> [G-curNode-3]
+[blocked8] --> [blocked8] :自旋
+[blocked9] --> [blocked9] :自旋
+}
+
+'线程2加入阶段
+package "线程2加入" {
+cloud "tailNode" as tailNode-2 #fab27b {
+}
+package "线程2等待锁" as W-T-2 {
+  frame "实例化" as W-O-2  #f8aba6 {
+    node "curNode" as W-curNode-2 #7bbfea {
+        [blocked=true] as blocked5
+        [next=null] as next5
+    }
+  }
+}
+package "线程1获取锁" as G-T-2 {
+  frame "实例化" as G-O-2  #cde6c7 {
+    node "curNode" as G-curNode-2 #7bbfea {
+        [blocked=false] as blocked4
+        [next] as next4
+    }
+  }
+}
+package "初始化锁的状态" as T-2 {
+  frame "实例化" as O-2  #d3d7d4 {
+    node "curNode" as curNode-2 #7bbfea {
+        [blocked=false] as blocked3
+        [next] as next3
+    }
+  }
+}
+[tailNode-2] --> [W-curNode-2] :原子引用
+[next4] --> [W-curNode-2]
+[next3] --> [G-curNode-2]
+[blocked5] --> [blocked5] :自旋
+}
+
+'线程1加入阶段
+package "线程1加入" {
+cloud "tailNode" as tailNode-1 #fab27b {
+}
+package "线程1获取锁" as G-T-1 {
+  frame "实例化" as G-O-1  #cde6c7 {
+    node "curNode" as G-curNode-1 #7bbfea {
+        [blocked=false] as blocked2
+        [next=null] as next2
+    }
+  }
+}
+package "初始化锁的状态" as T-1 {
+  frame "实例化" as O-1  #d3d7d4 {
+    node "curNode" as curNode-1 #7bbfea {
+        [blocked=false] as blocked1
+        [next] as next1
+    }
+  }
+}
+[tailNode-1] --> [G-curNode-1] :原子引用
+[next1] --> [G-curNode-1]
+}
+
+'初始化阶段
+package "初始化" {
+node "NULL" as null-0 #a1a3a6{
+}
+cloud "tailNode" as tailNode-0 #fab27b {
+}
+package "初始化锁的状态" as T-0 {
+  frame "实例化" as O-0  #d3d7d4 {
+    node "curNode" as curNode-0 #7bbfea {
+        [blocked=false] as blocked0
+        [next=null] as next0
+    }
+  }
+}
+[tailNode-0] --> [null-0] :原子引用
+}
+
+@enduml

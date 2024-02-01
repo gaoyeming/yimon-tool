@@ -1,0 +1,144 @@
+@startuml
+'https://plantuml.com/component-diagram
+left to right direction
+
+'线程3加入阶段
+package "线程3加入" {
+node "NULL" as null-3 #a1a3a6{
+}
+cloud "tailNode" as tailNode-3 #fab27b {
+}
+package "线程3等待锁" as W2-T-3 {
+  frame "实例化" as W2-O-3  #f8aba6 {
+    node "predNode" as W2-predNode-3 #7bbfea {
+    }
+    node "curNode" as W2-curNode-3 #7bbfea {
+        [locked=false] as locked9
+    }
+  }
+}
+package "线程2等待锁" as W1-T-3 {
+  frame "实例化" as W1-O-3  #f8aba6 {
+    node "predNode" as W1-predNode-3 #7bbfea {
+    }
+    node "curNode" as W1-curNode-3 #7bbfea {
+        [locked=false] as locked8
+    }
+  }
+}
+package "线程1获取锁" as G-T-3 {
+  frame "实例化" as G-O-3  #cde6c7 {
+    node "predNode" as G-predNode-3 #7bbfea {
+    }
+    node "curNode" as G-curNode-3 #7bbfea {
+        [locked=true] as locked7
+    }
+  }
+}
+package "初始化锁的状态" as T-3 {
+  frame "实例化" as O-3  #d3d7d4 {
+    node "predNode" as predNode-3 #7bbfea {
+    }
+    node "curNode" as curNode-3 #7bbfea {
+        [locked=false] as locked6
+    }
+  }
+}
+[tailNode-3] --> [W2-curNode-3] :原子引用
+[W2-predNode-3] --> [W1-curNode-3]
+[W1-predNode-3] --> [G-curNode-3]
+[G-predNode-3] --> [curNode-3]
+[predNode-3] --> [null-3]
+[W1-predNode-3] --> [W1-predNode-3] :自旋
+[W2-predNode-3] --> [W2-predNode-3] :自旋
+}
+
+'线程2加入阶段
+package "线程2加入" {
+node "NULL" as null-2 #a1a3a6{
+}
+cloud "tailNode" as tailNode-2 #fab27b {
+}
+package "线程2等待锁" as W-T-2 {
+  frame "实例化" as W-O-2  #f8aba6 {
+    node "predNode" as W-predNode-2 #7bbfea {
+    }
+    node "curNode" as W-curNode-2 #7bbfea {
+        [locked=false] as locked5
+    }
+  }
+}
+package "线程1获取锁" as G-T-2 {
+  frame "实例化" as G-O-2  #cde6c7 {
+    node "predNode" as G-predNode-2 #7bbfea {
+    }
+    node "curNode" as G-curNode-2 #7bbfea {
+        [locked=true] as locked4
+    }
+  }
+}
+package "初始化锁的状态" as T-2 {
+  frame "实例化" as O-2  #d3d7d4 {
+    node "predNode" as predNode-2 #7bbfea {
+    }
+    node "curNode" as curNode-2 #7bbfea {
+        [locked=false] as locked3
+    }
+  }
+}
+[tailNode-2] --> [W-curNode-2] :原子引用
+[W-predNode-2] --> [G-curNode-2]
+[G-predNode-2] --> [curNode-2]
+[predNode-2] --> [null-2]
+[W-predNode-2] --> [W-predNode-2] :自旋
+}
+
+'线程1加入阶段
+package "线程1加入" {
+node "NULL" as null-1 #a1a3a6{
+}
+cloud "tailNode" as tailNode-1 #fab27b {
+}
+package "线程1获取锁" as G-T-1 {
+  frame "实例化" as G-O-1  #cde6c7 {
+    node "predNode" as G-predNode-1 #7bbfea {
+    }
+    node "curNode" as G-curNode-1 #7bbfea {
+        [locked=true] as locked2
+    }
+  }
+}
+package "初始化锁的状态" as T-1 {
+  frame "实例化" as O-1  #d3d7d4 {
+    node "predNode" as predNode-1 #7bbfea {
+    }
+    node "curNode" as curNode-1 #7bbfea {
+        [locked=false] as locked1
+    }
+  }
+}
+[tailNode-1] --> [G-curNode-1] :原子引用
+[G-predNode-1] --> [curNode-1]
+[predNode-1] --> [null-1]
+}
+
+'初始化阶段
+package "初始化" {
+node "NULL" as null-0 #a1a3a6{
+}
+cloud "tailNode" as tailNode-0 #fab27b {
+}
+package "初始化锁的状态" as T-0 {
+  frame "实例化" as O-0  #d3d7d4 {
+    node "predNode" as predNode-0 #7bbfea {
+    }
+    node "curNode" as curNode-0 #7bbfea {
+        [locked=false] as locked0
+    }
+  }
+}
+[tailNode-0] --> [curNode-0] :原子引用
+[predNode-0] --> [null-0]
+}
+
+@enduml
