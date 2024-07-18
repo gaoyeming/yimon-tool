@@ -17,8 +17,10 @@ public final class StringUtils {
 
     private StringUtils() {
     }
+
     /**
      * 判断字符串是否为空
+     *
      * @param cs 字符
      * @return true为空，false不为空
      */
@@ -33,18 +35,22 @@ public final class StringUtils {
         }
         return true;
     }
+
     /**
      * 获取字符串长度
+     *
      * @param cs 字符串
      * @return 对应长度
      */
     public static int length(CharSequence cs) {
         return cs == null ? 0 : cs.length();
     }
+
     /**
      * 字符串拼接
+     *
      * @param delimiter 拼接字符
-     * @param array 字符串数组
+     * @param array     字符串数组
      * @return 拼接结果
      */
     public static String joinWith(String delimiter, Object... array) {

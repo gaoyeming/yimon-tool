@@ -29,7 +29,7 @@ public class ValidateTest {
     public void testThrowIllegality() {
         // Setup
         // Run the test
-        assertThrows(ValidateException.class, ()->Validate.throwIllegality(false, "message"));
+        assertThrows(ValidateException.class, () -> Validate.throwIllegality(false, "message"));
 
 
         // Verify the results

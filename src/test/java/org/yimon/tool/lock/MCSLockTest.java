@@ -19,18 +19,8 @@ public class MCSLockTest {
             TimeUnit.SECONDS, new LinkedBlockingDeque<>(100));
     private static Integer count = 0;
 
-    static class TaskTest implements Runnable {
-
-        @Override
-        public void run() {
-            lock.lock();
-            count++;
-            lock.unLock();
-        }
-    }
-
     @Test
-    public void mcsTest(){
+    public void mcsTest() {
         for (int i = 0; i < 100; i++) {
             executorService.execute(new TaskTest());
         }
@@ -39,5 +29,15 @@ public class MCSLockTest {
         while (!executorService.isTerminated()) {
         }
         System.out.println("count--->" + count);
+    }
+
+    static class TaskTest implements Runnable {
+
+        @Override
+        public void run() {
+            lock.lock();
+            count++;
+            lock.unLock();
+        }
     }
 }

@@ -12,8 +12,17 @@ import org.yimon.tool.log.BaseLogger;
  */
 public class ThreadPoolExecutorTest {
 
+    public static void doMethod(int i) {
+        try {
+            Thread.sleep(500L);
+            BaseLogger.info("{}任务业务处理完成", i);
+        } catch (InterruptedException e) {
+            BaseLogger.info("{}任务业务处理异常", i);
+        }
+    }
+
     @Test
-    public void threadPoolTest(){
+    public void threadPoolTest() {
         ThreadPoolExecutor executorAbort = new ThreadPoolExecutor();
         executorAbort.newThreadPool("APPID", 5, 6, 10L, 5, new ThreadAbortPolicy());
         for (int i = 0; i < 12; i++) {
@@ -36,14 +45,5 @@ public class ThreadPoolExecutorTest {
             executorDiscard.execute(() -> doMethod(finalI));
         }
         executorDiscard.shutdown();
-    }
-
-    public static void doMethod(int i) {
-        try {
-            Thread.sleep(500L);
-            BaseLogger.info("{}任务业务处理完成", i);
-        } catch (InterruptedException e) {
-            BaseLogger.info("{}任务业务处理异常", i);
-        }
     }
 }

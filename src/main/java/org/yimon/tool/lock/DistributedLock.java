@@ -14,16 +14,13 @@ import java.util.concurrent.TimeUnit;
  */
 public class DistributedLock implements Lock {
 
-    private final String distributedKey;
-
-    private final TryAcquire tryAcquire;
-
-    private final TryRelease tryRelease;
-
     /**
      * 标记每个线程ID
      **/
     private static final ThreadLocal<String> THREAD_ID = new ThreadLocal<>();
+    private final String distributedKey;
+    private final TryAcquire tryAcquire;
+    private final TryRelease tryRelease;
 
     public DistributedLock(String distributedKey, TryAcquire tryAcquire, TryRelease tryRelease) {
         this.distributedKey = distributedKey;

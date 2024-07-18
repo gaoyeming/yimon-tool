@@ -23,21 +23,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class DistributedLockTest {
 
-    private static Integer count = 0;
-
     private static final JedisPoolConfig poolConfig = new JedisPoolConfig();
-
     // 创建 Jedis 连接池
     private static final JedisPool jedisPool;
-
-    static {
-        poolConfig.setMaxTotal(10); // 设置最大连接数
-        poolConfig.setMaxIdle(5); // 设置最大空闲连接数
-        jedisPool = new JedisPool(poolConfig, "localhost", 6379);
-    }
-
     private static final ExecutorService executorService = new ThreadPoolExecutor(8, 10, 5, TimeUnit.SECONDS, new LinkedBlockingDeque<>(10000));
-
     private static final DistributedLock lock = new DistributedLock("Test:key", new TryAcquire() {
         @Override
         public Boolean carry(String key, String value, long expireTime, TimeUnit unit) {
@@ -66,6 +55,13 @@ public class DistributedLockTest {
             }
         }
     });
+    private static Integer count = 0;
+
+    static {
+        poolConfig.setMaxTotal(10); // 设置最大连接数
+        poolConfig.setMaxIdle(5); // 设置最大空闲连接数
+        jedisPool = new JedisPool(poolConfig, "localhost", 6379);
+    }
 
     private static String readScriptFromFile(String fileName) throws IOException {
         URL in = ClassLoader.getSystemClassLoader().getResource(fileName);
@@ -84,6 +80,20 @@ public class DistributedLockTest {
         }
     }
 
+    @Test
+    public void distributedLockTest() {
+        Jedis jedis = jedisPool.getResource();
+        jedis.del("Test:key");
+        for (int i = 0; i < 500; i++) {
+            executorService.execute(new TaskTest());
+        }
+        executorService.shutdown();
+        //进行阻塞
+        while (!executorService.isTerminated()) {
+        }
+        System.out.println("count--->" + count);
+        jedis.close();
+    }
 
     static class TaskTest implements Runnable {
 
@@ -100,20 +110,5 @@ public class DistributedLockTest {
                 lock.unlock();
             }
         }
-    }
-
-    @Test
-    public void distributedLockTest(){
-        Jedis jedis = jedisPool.getResource();
-        jedis.del("Test:key");
-        for (int i = 0; i < 500; i++) {
-            executorService.execute(new TaskTest());
-        }
-        executorService.shutdown();
-        //进行阻塞
-        while (!executorService.isTerminated()) {
-        }
-        System.out.println("count--->" + count);
-        jedis.close();
     }
 }
