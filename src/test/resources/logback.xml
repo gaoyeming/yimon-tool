@@ -3,14 +3,13 @@
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%yellow(%d{yy.MM.dd HH:mm:ss}) [threadId:%thread, traceId:%blue(%X{trace_id})] %highlight(%-5level)
-                %blue(%logger{36}) - %boldMagenta(%msg%n)
+            <pattern>%d{yy.MM.dd HH:mm:ss} [threadId:%thread, traceId:%X{trace_id}] %highlight(%-5level) %logger{36} - %highlight(%msg%n)
             </pattern>
-            <charset>utf-8</charset>
+            <charset>GBK</charset>
         </encoder>
     </appender>
 
-    <logger name="com.yeming.blog.core" level="INFO" additivity="false">
+    <logger name="org.yimon.tool" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
 
