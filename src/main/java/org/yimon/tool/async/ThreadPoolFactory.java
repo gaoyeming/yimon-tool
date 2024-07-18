@@ -1,6 +1,5 @@
 package org.yimon.tool.async;
 
-import java.util.Objects;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -20,8 +19,7 @@ public class ThreadPoolFactory implements ThreadFactory {
     private final AtomicInteger threadNumber = new AtomicInteger(1);
 
     public ThreadPoolFactory(String feature) {
-        SecurityManager securityManager = System.getSecurityManager();
-        group = Objects.nonNull(securityManager) ? securityManager.getThreadGroup() : Thread.currentThread().getThreadGroup();
+        group = Thread.currentThread().getThreadGroup();
         namePrefix = "ThreadFactory's " + feature + "-Worker-";
     }
 

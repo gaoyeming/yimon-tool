@@ -23,27 +23,29 @@ public class ThreadPoolExecutorTest {
 
     @Test
     public void threadPoolTest() {
-        ThreadPoolExecutor executorAbort = new ThreadPoolExecutor();
-        executorAbort.newThreadPool("APPID", 5, 6, 10L, 5, new ThreadAbortPolicy());
-        for (int i = 0; i < 12; i++) {
-            try {
-                int finalI = i;
-                executorAbort.execute(() -> doMethod(finalI));
-            } catch (RejectedException e) {
-                System.err.println(e.getMessage());
+        try (ThreadPoolExecutor executorAbort = new ThreadPoolExecutor()) {
+            executorAbort.newThreadPool("APPID", 5, 6, 10L, 5, new ThreadAbortPolicy());
+            for (int i = 0; i < 12; i++) {
+                try {
+                    int finalI = i;
+                    executorAbort.execute(() -> doMethod(finalI));
+                } catch (RejectedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+            executorAbort.shutdown();
+            while (!executorAbort.isTerminated()) {
+
             }
         }
-        executorAbort.shutdown();
-        while (!executorAbort.isTerminated()) {
-
-        }
         System.err.println("<---------->");
-        ThreadPoolExecutor executorDiscard = new ThreadPoolExecutor();
-        executorDiscard.newThreadPool("APPID", 5, 6, 10L, 5, new ThreadDiscardPolicy());
-        for (int i = 0; i < 12; i++) {
-            int finalI = i;
-            executorDiscard.execute(() -> doMethod(finalI));
+        try (ThreadPoolExecutor executorDiscard = new ThreadPoolExecutor()) {
+            executorDiscard.newThreadPool("APPID", 5, 6, 10L, 5, new ThreadDiscardPolicy());
+            for (int i = 0; i < 12; i++) {
+                int finalI = i;
+                executorDiscard.execute(() -> doMethod(finalI));
+            }
+            executorDiscard.shutdown();
         }
-        executorDiscard.shutdown();
     }
 }

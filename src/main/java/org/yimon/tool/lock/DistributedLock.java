@@ -33,7 +33,7 @@ public class DistributedLock implements Lock {
         long time = unit.toMillis(waitTime);
         long current = System.currentTimeMillis();
 
-        String distributedValue = StringUtils.join("DistributedLock-ThreadId:", Thread.currentThread().getId());
+        String distributedValue = StringUtils.join("DistributedLock-ThreadId:", Thread.currentThread().threadId());
         THREAD_ID.set(distributedValue);
 
         // 获取锁
@@ -68,7 +68,7 @@ public class DistributedLock implements Lock {
 
     @Override
     public void lock(long expireTime, TimeUnit unit) {
-        String distributedValue = StringUtils.join("DistributedLock-ThreadId:", Thread.currentThread().getId());
+        String distributedValue = StringUtils.join("DistributedLock-ThreadId:", Thread.currentThread().threadId());
         THREAD_ID.set(distributedValue);
         Boolean acquired;
         do {

@@ -6,6 +6,6 @@ package org.yimon.tool.lock;
 @FunctionalInterface
 public interface TryRelease {
 
-    public abstract Boolean carry(String key, String value);
+    Boolean carry(String key, String value);
 
 }

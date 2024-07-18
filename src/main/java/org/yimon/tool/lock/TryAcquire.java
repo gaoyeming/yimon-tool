@@ -8,6 +8,6 @@ import java.util.concurrent.TimeUnit;
 @FunctionalInterface
 public interface TryAcquire {
 
-    public abstract Boolean carry(String key, String value, long expireTime, TimeUnit unit);
+    Boolean carry(String key, String value, long expireTime, TimeUnit unit);
 
 }

@@ -2,16 +2,19 @@ package org.yimon.tool.exception;
 
 import org.yimon.tool.result.ReturnCode;
 
+import java.io.Serial;
+
 /**
  * @author: ym.gao
  * @description: 调用异常
- * @date: 2023/11/15 10:40
+ * @date: 2024/2/2 14:14
  */
 public class InvokeException extends RuntimeException {
 
     /**
      * serialVersionUID
      */
+    @Serial
     private static final long serialVersionUID = -1861292257466595071L;
     /**
      * 交易状态

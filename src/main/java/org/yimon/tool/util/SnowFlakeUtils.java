@@ -12,12 +12,12 @@ import java.net.UnknownHostException;
 
 /**
  * @author yeming.gao
- * @Description: 雪花算法实现
+ * @description: 雪花算法实现
  * <p>
  * SnowFlake算法用来生成64位的ID，刚好可以用long整型存储，能够用于分布式系统中生产唯一的ID，
  * 并且生成的ID有大致的顺序。 在这次实现中，生成的64位ID可以分成5个部分：
  * 0 - 41位时间戳 - 5位数据中心标识 - 5位机器标识 - 12位序列号
- * @date 2020/07/28 16:15
+ * @date: 2024/2/2 14:14
  */
 public final class SnowFlakeUtils {
     /**
