@@ -3,8 +3,7 @@
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{yy.MM.dd HH:mm:ss} [threadId:%thread, traceId:%X{trace_id}] %highlight(%-5level) %logger{36} -
-                %highlight(%msg%n)
+            <pattern>%d{yy.MM.dd HH:mm:ss} [threadId:%thread] %highlight(%-5level) %logger{36} - %highlight(%msg%n)
             </pattern>
             <charset>GBK</charset>
         </encoder>
