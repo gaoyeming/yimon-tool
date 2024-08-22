@@ -7,6 +7,11 @@ package org.yimon.tool.algo.leetcode;
  */
 public class LeetCode_005_LongestPalindrome {
 
+    public static void main(String[] args) {
+        LeetCode_005_LongestPalindrome longestPalindrome = new LeetCode_005_LongestPalindrome();
+        System.out.println(longestPalindrome.longestPalindrome3("cbbd"));
+    }
+
     /*
     中心扩散法
      */
@@ -85,11 +90,11 @@ public class LeetCode_005_LongestPalindrome {
         for (int left = 0; left < s.length() - 1; left++) {
             for (int right = 1; right < s.length(); right++) {
                 //先从dp中获取是否是回文
-                if(right - left + 1 > longest.length() && dp[left][right]) {
+                if (right - left + 1 > longest.length() && dp[left][right]) {
                     longest = s.substring(left, right + 1);
                 } else if (right - left + 1 > longest.length()) {
                     dp[left][right] = valid(s, left, right);
-                    if(dp[left][right]) {
+                    if (dp[left][right]) {
                         longest = s.substring(left, right + 1);
                     }
                 }
@@ -115,10 +120,5 @@ public class LeetCode_005_LongestPalindrome {
             right--;
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        LeetCode_005_LongestPalindrome longestPalindrome = new LeetCode_005_LongestPalindrome();
-        System.out.println(longestPalindrome.longestPalindrome3("cbbd"));
     }
 }

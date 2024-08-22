@@ -7,23 +7,6 @@ package org.yimon.tool.algo.leetcode;
  */
 public class LeetCode_002_AddTwoNumbers {
 
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
-
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode head = null, tail = null;
         int carry = 0;
@@ -50,5 +33,22 @@ public class LeetCode_002_AddTwoNumbers {
             tail.next = new ListNode(carry);
         }
         return head;
+    }
+
+    static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
     }
 }

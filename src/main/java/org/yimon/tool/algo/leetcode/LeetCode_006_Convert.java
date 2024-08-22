@@ -7,6 +7,11 @@ package org.yimon.tool.algo.leetcode;
  */
 public class LeetCode_006_Convert {
 
+    public static void main(String[] args) {
+        LeetCode_006_Convert convert = new LeetCode_006_Convert();
+        System.out.println(convert.convert2("PAYPALISHIRING", 3));
+    }
+
     public String convert1(String s, int numRows) {
         if (s == null || numRows < 2 || s.length() <= numRows) {
             return s;
@@ -47,11 +52,11 @@ public class LeetCode_006_Convert {
         for (int i = 0; i < numRows; i++) {
             rows[i] = new StringBuilder();
         }
-        for (int i = 0; i < s.length();) {
+        for (int i = 0; i < s.length(); ) {
             for (int j = 0; j < numRows && i < s.length(); j++) {
                 rows[j].append(s.charAt(i++));
             }
-            for (int j = numRows-2; j >=1 && i < s.length(); j--) {
+            for (int j = numRows - 2; j >= 1 && i < s.length(); j--) {
                 rows[j].append(s.charAt(i++));
             }
         }
@@ -63,10 +68,5 @@ public class LeetCode_006_Convert {
         }
 
         return result.toString();
-    }
-
-    public static void main(String[] args) {
-        LeetCode_006_Convert convert = new LeetCode_006_Convert();
-        System.out.println(convert.convert2("PAYPALISHIRING", 3));
     }
 }

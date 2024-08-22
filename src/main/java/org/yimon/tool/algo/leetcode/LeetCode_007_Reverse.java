@@ -7,11 +7,16 @@ package org.yimon.tool.algo.leetcode;
  */
 public class LeetCode_007_Reverse {
 
+    public static void main(String[] args) {
+        LeetCode_007_Reverse reverse = new LeetCode_007_Reverse();
+        System.out.println(reverse.reverse(-12511));
+    }
+
     public int reverse(int x) {
         int result = 0;
         while (x != 0) {
             //长度溢出判断
-            if(result>Integer.MAX_VALUE/10 || result<Integer.MIN_VALUE/10) {
+            if (result > Integer.MAX_VALUE / 10 || result < Integer.MIN_VALUE / 10) {
                 return 0;
             }
             result = result * 10 + x % 10;
@@ -19,11 +24,6 @@ public class LeetCode_007_Reverse {
         }
 
         return result;
-    }
-
-    public static void main(String[] args) {
-        LeetCode_007_Reverse reverse = new LeetCode_007_Reverse();
-        System.out.println(reverse.reverse(-12511));
     }
 }
 
