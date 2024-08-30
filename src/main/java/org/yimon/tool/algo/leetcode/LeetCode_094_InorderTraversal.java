@@ -8,7 +8,7 @@ import java.util.List;
  * @description: 二叉树的中序遍历 左节点->根节点->右节点
  * @date: 2024/8/20 下午3:26
  */
-public class LeetCode_94_InorderTraversal {
+public class LeetCode_094_InorderTraversal {
 
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();

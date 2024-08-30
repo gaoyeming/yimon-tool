@@ -5,10 +5,10 @@ package org.yimon.tool.algo.leetcode;
  * @description: 不同路径Ⅱ
  * @date: 2024/8/20 下午5:16
  */
-public class LeetCode_63_UniquePathsWithObstacles {
+public class LeetCode_063_UniquePathsWithObstacles {
 
     public static void main(String[] args) {
-        LeetCode_63_UniquePathsWithObstacles uniquePathsWithObstacles = new LeetCode_63_UniquePathsWithObstacles();
+        LeetCode_063_UniquePathsWithObstacles uniquePathsWithObstacles = new LeetCode_063_UniquePathsWithObstacles();
         System.out.println(uniquePathsWithObstacles.uniquePathsWithObstacles(new int[][]{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}));
     }
 

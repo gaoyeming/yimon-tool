@@ -5,7 +5,7 @@ package org.yimon.tool.algo.leetcode;
  * @description: 不同路径
  * @date: 2024/8/20 下午4:50
  */
-public class LeetCode_62_UniquePaths {
+public class LeetCode_062_UniquePaths {
 
     public int uniquePaths(int m, int n) {
         if (m == 1 || n == 1) {//只有一行或者只有一列，这种情况下只有一种走法

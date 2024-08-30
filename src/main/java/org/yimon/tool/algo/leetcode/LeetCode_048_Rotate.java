@@ -5,10 +5,17 @@ package org.yimon.tool.algo.leetcode;
  * @description: 旋转矩阵
  * @date: 2024/8/22 下午2:08
  */
-public class LeetCode_Rotate {
+public class LeetCode_048_Rotate {
+
+    public static void main(String[] args) {
+        LeetCode_048_Rotate rotate = new LeetCode_048_Rotate();
+        int[][] a = new int[][]{{5, 1, 9, 11}, {2, 4, 8, 10}, {13, 3, 6, 7}, {15, 14, 12, 16}};
+        rotate.rotate(a);
+        System.out.println(a);
+    }
 
     public void rotate(int[][] matrix) {
-        if(matrix == null) {
+        if (matrix == null) {
             return;
         }
         //获取行数列数
@@ -18,7 +25,7 @@ public class LeetCode_Rotate {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 //对折线上以及左边无需无需旋转结束
-                if(i <= j) {
+                if (i <= j) {
                     continue;
                 }
                 int temp = matrix[i][j];
@@ -27,11 +34,11 @@ public class LeetCode_Rotate {
             }
         }
         //再按照垂直线旋转
-        int mid = m%2 == 0 ? m/2-1 : m/2;
+        int mid = m % 2 == 0 ? m / 2 - 1 : m / 2;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 //垂直线上以及左边无需无需旋转结束
-                if(j <= mid) {
+                if (j <= mid) {
                     continue;
                 }
                 int temp = matrix[i][j];
@@ -39,12 +46,5 @@ public class LeetCode_Rotate {
                 matrix[i][n - 1 - j] = temp;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        LeetCode_Rotate rotate = new LeetCode_Rotate();
-        int [][] a = new int[][]{{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
-        rotate.rotate(a);
-        System.out.println(a);
     }
 }
