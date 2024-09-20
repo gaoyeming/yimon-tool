@@ -7,21 +7,29 @@ package org.yimon.tool.algo.leetcode;
  */
 public class LeetCode_011_MaxArea {
 
+    public int maxArea(int[] height) {
+        if(height == null  || height.length<2) {
+            return 0;
+        }
+        //双指针进行处理
+        int left=0, right = height.length-1;
+        int max = 0;//记录最大值
+        while (left<right) {
+            //求面积
+            int are = (right-left)*Math.min(height[left], height[right]);
+            max = Math.max(max, are);
+
+            if(height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
         LeetCode_011_MaxArea maxArea = new LeetCode_011_MaxArea();
         System.out.println(maxArea.maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
-    }
-
-    public int maxArea(int[] height) {
-        if (height == null || height.length < 2) {
-            return 0;
-        }
-        int maxArea = 0;
-        for (int i = 0; i < height.length - 1; i++) {
-            for (int j = i + 1; j < height.length; j++) {
-                maxArea = Math.max(maxArea, (j - i) * Math.min(height[i], height[j]));
-            }
-        }
-        return maxArea;
     }
 }

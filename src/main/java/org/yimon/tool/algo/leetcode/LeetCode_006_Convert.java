@@ -7,66 +7,36 @@ package org.yimon.tool.algo.leetcode;
  */
 public class LeetCode_006_Convert {
 
-    public static void main(String[] args) {
-        LeetCode_006_Convert convert = new LeetCode_006_Convert();
-        System.out.println(convert.convert2("PAYPALISHIRING", 3));
-    }
-
     public String convert1(String s, int numRows) {
-        if (s == null || numRows < 2 || s.length() <= numRows) {
+        if(s == null ||  s.length()<=numRows || numRows ==1){
             return s;
         }
-
-        //排序后按照行进行结果记录
-        StringBuilder[] rows = new StringBuilder[numRows];
+        StringBuilder[] rows = new StringBuilder[numRows];//记录每一行字符串并初始化值
         for (int i = 0; i < numRows; i++) {
-            rows[i] = new StringBuilder();
+            rows[i] = new StringBuilder();//初始化每个行
         }
+        //当前需要写入的行
         int row = 0;
-        boolean down = false; // 方向标志，true向下移动；false向上移动
+        //当前是否向下写入，true为向下写 行+1；false向上写 行-1
+        boolean down = false;
         for (int i = 0; i < s.length(); i++) {
             rows[row].append(s.charAt(i));
-            if (row == 0 || row == numRows - 1) {
+            if(row == 0 || row==numRows-1) {//当写入到第一行或者最后一行的时候进行转向
                 down = !down;
             }
-            //向下移动row+1；向上移动row-1
-            row = down ? row + 1 : row - 1;
+            row = down ? row+1 : row-1;
         }
 
-        // 合并所有行，构建最终的字符串
         StringBuilder result = new StringBuilder();
-        for (StringBuilder one : rows) {
-            result.append(one);
+        for (StringBuilder r: rows) {
+            result.append(r);
         }
-
         return result.toString();
     }
 
-    public String convert2(String s, int numRows) {
-        if (s == null || numRows < 2 || s.length() <= numRows) {
-            return s;
-        }
 
-        //排序后按照行进行结果记录
-        StringBuilder[] rows = new StringBuilder[numRows];
-        for (int i = 0; i < numRows; i++) {
-            rows[i] = new StringBuilder();
-        }
-        for (int i = 0; i < s.length(); ) {
-            for (int j = 0; j < numRows && i < s.length(); j++) {
-                rows[j].append(s.charAt(i++));
-            }
-            for (int j = numRows - 2; j >= 1 && i < s.length(); j--) {
-                rows[j].append(s.charAt(i++));
-            }
-        }
-
-        // 合并所有行，构建最终的字符串
-        StringBuilder result = new StringBuilder();
-        for (StringBuilder one : rows) {
-            result.append(one);
-        }
-
-        return result.toString();
+    public static void main(String[] args) {
+        LeetCode_006_Convert convert = new LeetCode_006_Convert();
+        System.out.println(convert.convert1("PAYPALISHIRING", 3));
     }
 }

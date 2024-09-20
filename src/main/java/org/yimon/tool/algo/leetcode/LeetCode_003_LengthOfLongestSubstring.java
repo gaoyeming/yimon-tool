@@ -10,11 +10,6 @@ import java.util.Set;
  */
 public class LeetCode_003_LengthOfLongestSubstring {
 
-    public static void main(String[] args) {
-        LeetCode_003_LengthOfLongestSubstring lengthOfLongestSubstring = new LeetCode_003_LengthOfLongestSubstring();
-        System.out.println(lengthOfLongestSubstring.lengthOfLongestSubstring("abcabcbb"));
-    }
-
     public int lengthOfLongestSubstring(String s) {
         if (s == null) {
             return 0;
@@ -22,23 +17,27 @@ public class LeetCode_003_LengthOfLongestSubstring {
         if (s.length() <= 1) {
             return s.length();
         }
-        Set<Character> charSet = new HashSet<>();
-        int maxSize = 0;
-        for (int right = 0; right < s.length(); right++) {
-            if (right > 0) { //右指针向右移动一位，也即把charSet左右边字符去除即可
-                charSet.remove(s.charAt(right - 1));
+        Set<Character> noDup = new HashSet<>();
+        int max = 0;
+
+        for (int left = 0; left < s.length(); left++) {
+            if (left > 0) {
+                noDup.remove(s.charAt(left-1));
             }
-            for (int left = right + charSet.size(); left < s.length(); left++) {//左指针从right + charSet.size()开始
-                if (charSet.contains(s.charAt(left))) {
+            for (int right = left + noDup.size(); right < s.length(); right++) {
+                if (noDup.contains(s.charAt(right))) {
                     break;
                 } else {
-                    charSet.add(s.charAt(left));
+                    noDup.add(s.charAt(right));
                 }
             }
-            if (charSet.size() > maxSize) {
-                maxSize = charSet.size();
-            }
+            max = Math.max(noDup.size(), max);
         }
-        return maxSize;
+        return max;
+    }
+
+    public static void main(String[] args) {
+        LeetCode_003_LengthOfLongestSubstring lengthOfLongestSubstring = new LeetCode_003_LengthOfLongestSubstring();
+        System.out.println(lengthOfLongestSubstring.lengthOfLongestSubstring("pwwkew"));
     }
 }
